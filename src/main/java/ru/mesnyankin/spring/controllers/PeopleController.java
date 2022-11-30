@@ -38,19 +38,17 @@ public class PeopleController {
         return "people/show";
     }
 
-    /*
+/*
     @GetMapping("/new")
     public String newPerson(Model model) {
         model.addAttribute("person", new Person());
 
         return "people/new";
     }
-    */
+*/
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("person") Model model) { //создаст пустой объекь person
-
-
+    public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
 
@@ -64,4 +62,26 @@ public class PeopleController {
 
         return "redirect:people";  //делаем редирект на главную страцу
     }
-}
+
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", personDAO.show(id));
+
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
+        personDAO.update(id, person);
+
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        personDAO.delete(id);
+
+
+        return "redirect:/people";
+    }}

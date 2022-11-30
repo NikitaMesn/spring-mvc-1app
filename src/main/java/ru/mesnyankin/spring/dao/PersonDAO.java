@@ -22,6 +22,7 @@ public class PersonDAO {
         people.add(new Person(++PEOPLE_COUNT, "Kate"));
         people.add(new Person(++PEOPLE_COUNT, "Bred"));
         people.add(new Person(++PEOPLE_COUNT, "Fred"));
+        people.add(new Person(++PEOPLE_COUNT, "Jhon 2"));
     }
 
 
@@ -36,5 +37,16 @@ public class PersonDAO {
     public void save(Person person) {
         person.setId(++PEOPLE_COUNT);
         people.add(person);
+    }
+
+    public void update(int id, Person person) {
+
+        Person personToBeUpdated = show(id);
+
+        personToBeUpdated.setName(person.getName());
+    }
+
+    public void delete(int id) {
+        people.removeIf(x -> x.getId() == id);
     }
 }
