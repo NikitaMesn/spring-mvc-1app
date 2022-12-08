@@ -1,8 +1,10 @@
 package ru.mesnyankin.spring.controllers;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.mesnyankin.spring.dao.PersonDAO;
 import ru.mesnyankin.spring.model.Person;
@@ -54,7 +56,12 @@ public class PeopleController {
 
 
     @PostMapping
-    public String createPerson(@ModelAttribute("person") Person person) {
+    public String createPerson(@ModelAttribute("person") @Valid Person person,
+                                                         BindingResult bindingResult //идет всегда после поля с аннотацией @Valid
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "people/new";
+        }
         /*
         Аннотации @ModelAttribute в пустом объекте person сохраняет значение полей из формы таймлиф
         */
@@ -72,7 +79,14 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult, //идет всегда после поля с аннотацией @Valid
+                         @PathVariable("id") int id ) {
+
+        if (bindingResult.hasErrors()) {
+            return "people/edit";
+        }
+
         personDAO.update(id, person);
 
         return "redirect:/people";

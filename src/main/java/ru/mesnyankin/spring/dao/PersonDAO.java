@@ -15,14 +15,11 @@ public class PersonDAO {
     {
         //инициализируется перед коструктором, уточнить в интернете
         people = new ArrayList<>();
-        people.add(new Person(++PEOPLE_COUNT, "Jack"));
-        people.add(new Person(++PEOPLE_COUNT, "Tom"));
-        people.add(new Person(++PEOPLE_COUNT, "John"));
-        people.add(new Person(++PEOPLE_COUNT, "Anna"));
-        people.add(new Person(++PEOPLE_COUNT, "Kate"));
-        people.add(new Person(++PEOPLE_COUNT, "Bred"));
-        people.add(new Person(++PEOPLE_COUNT, "Fred"));
-        people.add(new Person(++PEOPLE_COUNT, "Jhon 2"));
+        people.add(new Person(++PEOPLE_COUNT, "Jack", 22, "jack@mail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Tom", 25, "tom@mail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "John", 24, "john@mail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Anna", 21, "anna@mail.com"));
+
     }
 
 
@@ -44,6 +41,8 @@ public class PersonDAO {
         Person personToBeUpdated = show(id);
 
         personToBeUpdated.setName(person.getName());
+        personToBeUpdated.setAge(person.getAge());
+        personToBeUpdated.setEmail(person.getEmail());
     }
 
     public void delete(int id) {
